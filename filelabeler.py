@@ -14,15 +14,19 @@ def load_font(font_path, font_size):
         print(f"Font at {font_path} not found. Using default font.")
         return ImageFont.load_default()
 
-def calculate_text_position(draw, text, font, image_width, image_height):
+def calculate_text_position(draw, text, font, image_width, image_height, top_margin=20):
     """
-    Calculate the position to center the text on the image.
+    Calculate the position to align the text horizontally centered and vertically near the top,
+    with an optional top margin.
     """
+    # Get text bounding box
     text_bbox = draw.textbbox((0, 0), text, font=font)
     text_width = text_bbox[2] - text_bbox[0]
-    text_height = text_bbox[3] - text_bbox[1]
+
+    # Center horizontally and set vertically near the top with a top margin
     x = (image_width - text_width) // 2
-    y = (image_height - text_height) // 2
+    y = top_margin  # Distance from the top of the image
+
     return x, y
 
 def calculate_appropriate_font_size(text, max_width, max_height, font_path="/usr/share/fonts/truetype/msttcorefonts/Arial.ttf"):
@@ -120,7 +124,7 @@ def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Print labels from text input, separated by commas or new lines.")
     parser.add_argument("text", type=str, nargs="?", help="Text to print on the label (comma or newline-separated)")
-    parser.add_argument("--font_size", type=int, default=200, help="Font size for the label text")
+    parser.add_argument("--font_size", type=int, help="Font size for the label text")
     parser.add_argument("--printer", type=str, help="Optional printer name")
     args = parser.parse_args()
 
