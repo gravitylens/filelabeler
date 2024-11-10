@@ -2,6 +2,7 @@ import subprocess
 import argparse
 from PIL import Image, ImageDraw, ImageFont
 import os
+import sys
 
 def load_font(font_path, font_size):
     """
@@ -117,19 +118,29 @@ def print_label(filename, printer_name=None):
 
 def main():
     # Parse command-line arguments
-    parser = argparse.ArgumentParser(description="Print a label with specified text.")
-    parser.add_argument("text", type=str, help="Text to print on the label")
-    parser.add_argument("--font_size", type=int, help="Font size for the label text")
+    parser = argparse.ArgumentParser(description="Print labels from text input, separated by commas or new lines.")
+    parser.add_argument("text", type=str, nargs="?", help="Text to print on the label (comma or newline-separated)")
+    parser.add_argument("--font_size", type=int, default=200, help="Font size for the label text")
     parser.add_argument("--printer", type=str, help="Optional printer name")
     args = parser.parse_args()
 
-    # Create and print the label
-    label_image = create_label_image(args.text, args.font_size)
-    print_label(label_image, args.printer)
+    # Determine the source of input: command-line argument or stdin
+    if args.text:
+        input_text = args.text
+    else:
+        input_text = sys.stdin.read()
 
-    # Clean up the label image file from /tmp
-    if os.path.exists(label_image):
-        os.remove(label_image)
+    # Split the input text by commas or newlines
+    labels = [label.strip() for label in input_text.replace(',', '\n').splitlines() if label.strip()]
+
+    # Process each label
+    for label_text in labels:
+        label_image = create_label_image(label_text, args.font_size)
+        print_label(label_image, args.printer)
+
+        # Clean up the label image file from /tmp
+        if os.path.exists(label_image):
+            os.remove(label_image)
 
 if __name__ == "__main__":
     main()
