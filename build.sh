@@ -15,9 +15,9 @@ DESTINATION_DIR="$HOME/.local/bin"
 mkdir -p "$DESTINATION_DIR"
 
 # Build each application
-for i in (seq 1 (count $SCRIPTS))
-    script=$SCRIPTS[$i-1]
-    output_name=$OUTPUT_NAMES[$i-1]
+for i in "${!SCRIPTS[@]}"; do
+    script=${SCRIPTS[$i]}
+    output_name=${OUTPUT_NAMES[$i]}
 
     echo "Building $script with PyInstaller..."
     pyinstaller --onefile --name "$output_name" "$script"
