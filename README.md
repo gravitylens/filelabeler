@@ -54,7 +54,8 @@ filelabeler "Label Text"
   ```bash
   filelabeler "Label Text" --font_size 150
   ```
-
+  - If no font_size is specified, the application will find the maximum font_size that will fit the text on the label up to 200
+  - font_size is specified as height in pixels
 #### Example
 
 ```bash
@@ -138,7 +139,6 @@ This script uses `pyinstaller` to create standalone executables for `filelabeler
 
 ## Troubleshooting
 
-- **Mirror Image Labels**: If labels print mirrored, ensure the `filelabeler` and `addresslabeler` scripts are up-to-date with the latest changes.
 - **Missing Fonts**: Ensure the Courier font (`FreeMono.ttf`) is installed on your system.
 
 ```bash
