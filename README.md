@@ -63,14 +63,14 @@ echo "Hello, World!" | filelabeler --font_size 100 --printer DYMO_LabelWriter
 
 ---
 
-### 2. `address_labeler`
+### 2. `addresslabeler`
 
 This application prints address labels from a file or `stdin`. Each address is separated by a blank line.
 
 #### Usage
 
 ```bash
-address_labeler [file]
+addresslabeler [file]
 ```
 
 #### Options
@@ -78,16 +78,16 @@ address_labeler [file]
 - **File Input**: 
   - Provide a file containing addresses:
     ```bash
-    address_labeler addresses.txt
+    addresslabeler addresses.txt
     ```
   - Or pass addresses via `stdin`:
     ```bash
-    cat addresses.txt | address_labeler
+    cat addresses.txt | addresslabeler
     ```
 
 - **Printer**: Use the `--printer` option to specify the printer:
   ```bash
-  address_labeler addresses.txt --printer DYMO_LabelWriter
+  addresslabeler addresses.txt --printer DYMO_LabelWriter
   ```
 
 #### Address File Format
@@ -107,13 +107,13 @@ Shelbyville, IL 61501
 #### Example
 
 ```bash
-address_labeler addresses.txt --printer DYMO_LabelWriter
+addresslabeler addresses.txt --printer DYMO_LabelWriter
 ```
 
 Or, using `stdin`:
 
 ```bash
-cat addresses.txt | address_labeler
+cat addresses.txt | addresslabeler
 ```
 
 ---
@@ -132,13 +132,13 @@ To build the applications, use the provided `build.sh` script:
 ./build.sh
 ```
 
-This script uses `pyinstaller` to create standalone executables for `filelabeler` and `address_labeler`. The executables will be copied to `~/.local/bin`.
+This script uses `pyinstaller` to create standalone executables for `filelabeler` and `addresslabeler`. The executables will be copied to `~/.local/bin`.
 
 ---
 
 ## Troubleshooting
 
-- **Mirror Image Labels**: If labels print mirrored, ensure the `filelabeler` and `address_labeler` scripts are up-to-date with the latest changes.
+- **Mirror Image Labels**: If labels print mirrored, ensure the `filelabeler` and `addresslabeler` scripts are up-to-date with the latest changes.
 - **Missing Fonts**: Ensure the Courier font (`FreeMono.ttf`) is installed on your system.
 
 ```bash
